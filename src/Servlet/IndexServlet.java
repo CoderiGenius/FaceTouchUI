@@ -89,6 +89,7 @@ public class IndexServlet extends HttpServlet {
 				
 				//获取小组数
 				int groupCount = Integer.parseInt(listGroupReturnJson.getString("group_count"));
+				String count = listGroupReturnJson.getString("group_count");
 				String groupName[] = new String[groupCount];
 				String personCount[] = new String[groupCount];
 
@@ -104,8 +105,8 @@ public class IndexServlet extends HttpServlet {
 					request.setAttribute("personCount" + i, personCount[i]);
 				}
 				//set小组数
-				 request.setAttribute("groupCount", groupCount);
-				// System.out.println("group"+personCount);
+				 request.setAttribute("groupCount",count );
+				 System.out.println("groupc"+count);
 
 				request.getRequestDispatcher("../GroupManagement.jsp").forward(request, response);
 			}

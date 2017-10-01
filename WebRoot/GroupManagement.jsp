@@ -9,7 +9,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Realm - UI Features</title>
+    <title>FaceTouch UI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Bluth Company">
     <link rel="shortcut icon" href="${path}assets/ico/favicon.html">
@@ -50,9 +50,9 @@
           <div class="top-menu visible-desktop">
             <ul class="pull-left">
                <% 
-          //System.out.println(session.getAttribute("userEmail"));
+          System.out.println(session.getAttribute("userEmail"));
           %>
-            <li><a id="notifications" data-notification="" href="#"  style="font-size: 34px;"><i class="icon-globe"></i> ${userEmail }</a></li>
+            <li><a ><i class="icon-globe"></i> ${userEmail }</a></li>
           </ul>
             <ul class="pull-right">  
               <li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
@@ -166,9 +166,12 @@
                 <tbody>
                   <%String groupName;
                   String personCount;
-                  //int groupCount = request.getAttribute("groupCount");
-                  
-                  for(int i=0;i<=2;i++){
+                  String groupCount =(String)request.getAttribute("groupCount");
+                  System.out.println(groupCount);
+                  if(groupCount!=null){
+                  int temCount = Integer.valueOf(groupCount);
+                  }
+                  for(int i=0;i<3;i++){
                   groupName =(String)request.getAttribute("groupName"+i);
                   personCount =(String)request.getAttribute("personCount"+i);
                   if(groupName!=null)
