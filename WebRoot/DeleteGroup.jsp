@@ -130,7 +130,15 @@
 
       <!-- Main window -->
       <div class="main_container" id="dashboard_page">
-     
+      <div class="main_container" id="ui_page">
+      <form action = "${path}Servlet/IndexServlet">
+      <input type="hidden" name="action" value="listgroup">
+<h2 class="heading">
+                删除小组  
+          </h2>
+          <input type="username" value="请输入小组名称" name="groupName">
+<button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除小组</button>
+</form>
 
         <!-- CHARTS  -->
     

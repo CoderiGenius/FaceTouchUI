@@ -166,10 +166,14 @@
                 <tbody>
                   <%String groupName;
                   String personCount;
-                  groupName =(String)request.getAttribute("groupName");
-                  personCount =(String)request.getAttribute("personCount");
+                  //int groupCount = request.getAttribute("groupCount");
+                  
+                  for(int i=0;i<=2;i++){
+                  groupName =(String)request.getAttribute("groupName"+i);
+                  personCount =(String)request.getAttribute("personCount"+i);
                   if(groupName!=null)
-                	  out.write("<tr><td>"+groupName+"</td><td>"+personCount+"</td></tr>");%>
+                	  out.write("<tr><td>"+groupName+"</td><td>"+personCount+"</td></tr>");
+                	  }%>
              
                 
                 

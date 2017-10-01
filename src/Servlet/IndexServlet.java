@@ -24,6 +24,9 @@ import java.util.ArrayList;
  * Servlet implementation class IndexServlet
  */
 public class IndexServlet extends HttpServlet {
+	private static String URL = "http://fp.qust.cc/api/group/listgroup";
+	private static String APP_KEY = "2f16a447-c972-45d5-a6e9-b2a4ed50e050";
+	private static String APP_SECRET = "97ECCE99E4B8326A82BA5BBC3EDA0664";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -38,40 +41,19 @@ public class IndexServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    	
     	response.setContentType("text/html;charset=UTF-8");
 		String userAction = request.getParameter("action");
 		System.out.println("get!");
 		System.out.println(userAction);
-		if(userAction.equals("listgroup") ){
-			String url = "http://fp.qust.cc/api/group/listgroup";
-			 Map<String,String> postMap = new HashMap<String,String>();  
-			postMap.put("app_key", "2f16a447-c972-45d5-a6e9-b2a4ed50e050");
-			postMap.put("app_secret", "97ECCE99E4B8326A82BA5BBC3EDA0664");
-			System.out.println("postMap"+postMap);
-			 JSONObject listGroupReturnJson  = JSONObject.fromObject(http.HttpClientUtil.doPost(url,postMap,"UTF-8"));
-			 System.out.println(listGroupReturnJson);
-			 if(listGroupReturnJson.getString("state").equals("success")){
-				
-				 
-				String groupList = listGroupReturnJson.getString("group_list");
-				//JSONObject groupListInJson = JSONObject.fromObject("{"+groupList+"}");
-				//String groupName = groupListInJson.getString("group_name");*/
-				
-				 JSONArray jsonArray = JSON.parseArray(listGroupReturnJson.getString("group_list"));
-			        com.alibaba.fastjson.JSONObject jsObj2=JSON.parseObject(jsonArray.get(0).toString());
-			        //System.out.println(jsObj2.getString("ph_en"));
-			        String groupName = jsObj2.getString("group_name");
-			        String personCount = jsObj2.getString("person_count");
-				
-				request.setAttribute("personCount", personCount);
-				request.setAttribute("groupList", groupList);
-				System.out.println("group"+personCount);
-				
-				request.setAttribute("groupName",groupName);
-				request.getRequestDispatcher("../GroupManagement.jsp").forward(request, response);
-			 }
-		}else request.getRequestDispatcher("../index.jsp").forward(request, response);
+		if(userAction.equals("listgroup")){
+			listGroup(request,response);
+		}
+		else if(userAction.equals("deleteGroup")){
+			deleteGroup(request,response);
+		}
+		else if(userAction.equals("addGroup")){
+			addGroup(request,response);
+		}
 	}
 
 	/**
@@ -82,4 +64,57 @@ public class IndexServlet extends HttpServlet {
 		
 	}
 
+	private void listGroup(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		//list小组
+		response.setContentType("text/html;charset=UTF-8");
+		String userAction = request.getParameter("action");
+
+		System.out.println(userAction);
+		if (userAction.equals("listgroup")) {
+			
+			Map<String, String> postMap = new HashMap<String, String>();
+			postMap.put("app_key", APP_KEY);
+			postMap.put("app_secret", APP_SECRET);
+			System.out.println("postMap" + postMap);
+			JSONObject listGroupReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL, postMap, "UTF-8"));
+			System.out.println(listGroupReturnJson);
+			if (listGroupReturnJson.getString("state").equals("success")) {
+
+				//String groupList = listGroupReturnJson.getString("group_list");
+				// JSONObject groupListInJson =
+				// JSONObject.fromObject("{"+groupList+"}");
+				// String groupName = groupListInJson.getString("group_name");*/
+				
+				//获取小组数
+				int groupCount = Integer.parseInt(listGroupReturnJson.getString("group_count"));
+				String groupName[] = new String[groupCount];
+				String personCount[] = new String[groupCount];
+
+				for (int i = 0; i < groupCount; i++) {
+					JSONArray jsonArray = JSON.parseArray(listGroupReturnJson.getString("group_list"));
+					com.alibaba.fastjson.JSONObject jsObj2 = JSON.parseObject(jsonArray.get(i).toString());
+					// System.out.println(jsObj2.getString("ph_en"));
+					groupName[i] = jsObj2.getString("group_name");
+					personCount[i] = jsObj2.getString("person_count");
+					
+				//set小组名和小组人数
+					request.setAttribute("groupName" + i, groupName[i]);
+					request.setAttribute("personCount" + i, personCount[i]);
+				}
+				//set小组数
+				 request.setAttribute("groupCount", groupCount);
+				// System.out.println("group"+personCount);
+
+				request.getRequestDispatcher("../GroupManagement.jsp").forward(request, response);
+			}
+		}
+	}
+	private void addGroup(HttpServletRequest request, HttpServletResponse response){
+		
+	}
+	private void deleteGroup(HttpServletRequest request, HttpServletResponse response){
+		
+	}
 }
