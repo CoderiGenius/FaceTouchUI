@@ -71,30 +71,30 @@
     <div class="container-fluid">
      
       <!-- Side menu -->
-      <div class="sidebar-nav nav-collapse collapse">
+   <div class="sidebar-nav nav-collapse collapse">
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
-          <h5>Odinn</h5>
+          <h5>${userEmail }</h5>
           <a href="#"><i class="icon-cog"></i> Settings</a>        
         </div>
         <div class="accordion" id="accordion2">
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1"><i class="icon-magic"></i> <span>Management</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed"  href="${path}GroupManagement.jsp"><i class="icon-magic"></i> <span>List Group</span></a>
             </div>
             <div id="collapse1" class="accordion-body collapse">
               <div class="accordion-inner">
-                <a class="accordion-toggle" href="GroupManagement.jsp"><i class="icon-star"></i> List Group</a>
-                <a class="accordion-toggle" href="AddGroup.jsp"><i class="icon-list-alt"></i> Add Group</a>
-                <a class="accordion-toggle" href="DeleteGroup.jsp"><i class="icon-table"></i> Delete Group</a>
+                <a class="accordion-toggle" href="${path}GroupManagement.jsp"><i class="icon-star"></i> List Group</a>
+                <a class="accordion-toggle" href="${path}AddGroup.jsp"><i class="icon-list-alt"></i> Add Group</a>
+                <a class="accordion-toggle" href="${path}DeleteGroup.jsp"><i class="icon-table"></i> Delete Group</a>
                 <a class="accordion-toggle" href="buttons.html"><i class="icon-circle"></i> unnamed</a>
               </div>
             </div>
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_9FDDF6 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-reorder"></i> <span>unnamed</span></a>
+              <a class="accordion-toggle b_9FDDF6 collapsed"  href="${path}AddGroup.jsp"><i class="icon-reorder"></i> <span>Add Group</span></a>
             </div>
             <div id="collapse2" class="accordion-body collapse">
               <div class="accordion-inner">
@@ -106,7 +106,7 @@
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F6F1A2" href="tasks.html"><i class="icon-tasks"></i> <span>unnamed</span></a>
+              <a class="accordion-toggle b_9FDDF6 collapsed"  href="${path}DeleteGroup.jsp"><i class="icon-reorder"></i> <span>Delete Group</span></a>
             </div>
           </div>
           <div class="accordion-group">

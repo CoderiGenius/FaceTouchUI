@@ -71,30 +71,30 @@
     <div class="container-fluid">
      
       <!-- Side menu -->
-      <div class="sidebar-nav nav-collapse collapse">
+   <div class="sidebar-nav nav-collapse collapse">
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
-          <h5>Odinn</h5>
+          <h5>${userEmail }</h5>
           <a href="#"><i class="icon-cog"></i> Settings</a>        
         </div>
         <div class="accordion" id="accordion2">
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse1"><i class="icon-magic"></i> <span>Management</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed"  href="${path}GroupManagement.jsp"><i class="icon-magic"></i> <span>List Group</span></a>
             </div>
             <div id="collapse1" class="accordion-body collapse">
               <div class="accordion-inner">
-                <a class="accordion-toggle" href="GroupManagement.jsp"><i class="icon-star"></i> List Group</a>
-                <a class="accordion-toggle" href="AddGroup.jsp"><i class="icon-list-alt"></i> Add Group</a>
-                <a class="accordion-toggle" href="DeleteGroup.jsp"><i class="icon-table"></i> Delete Group</a>
+                <a class="accordion-toggle" href="${path}GroupManagement.jsp"><i class="icon-star"></i> List Group</a>
+                <a class="accordion-toggle" href="${path}AddGroup.jsp"><i class="icon-list-alt"></i> Add Group</a>
+                <a class="accordion-toggle" href="${path}DeleteGroup.jsp"><i class="icon-table"></i> Delete Group</a>
                 <a class="accordion-toggle" href="buttons.html"><i class="icon-circle"></i> unnamed</a>
               </div>
             </div>
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_9FDDF6 collapsed" data-toggle="collapse" data-parent="#accordion2" href="#collapse2"><i class="icon-reorder"></i> <span>unnamed</span></a>
+              <a class="accordion-toggle b_9FDDF6 collapsed"  href="${path}AddGroup.jsp"><i class="icon-reorder"></i> <span>Add Group</span></a>
             </div>
             <div id="collapse2" class="accordion-body collapse">
               <div class="accordion-inner">
@@ -106,7 +106,7 @@
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F6F1A2" href="tasks.html"><i class="icon-tasks"></i> <span>unnamed</span></a>
+              <a class="accordion-toggle b_9FDDF6 collapsed"  href="${path}DeleteGroup.jsp"><i class="icon-reorder"></i> <span>Delete Group</span></a>
             </div>
           </div>
           <div class="accordion-group">
@@ -130,16 +130,33 @@
 
       <!-- Main window -->
       <div class="main_container" id="dashboard_page">
-      <div class="main_container" id="ui_page">
-      <form action = "${path}Servlet/IndexServlet">
-      <input type="hidden" name="action" value="listgroup">
-<h2 class="heading">
-                删除小组  
-          </h2>
-          <input type="username" value="请输入小组名称" name="groupName">
-<button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除小组</button>
-</form>
-
+       <div class="widget widget-padding span12">
+            <div class="widget-header">
+              <i class="icon-list-alt"></i><h5>删除小组</h5>
+              <div class="widget-buttons">
+                  <a href="#" data-title="Collapse" data-collapsed="false" class="tip collapse" data-original-title=""><i class="icon-chevron-up"></i></a>
+              </div>
+            </div>
+            <div class="widget-body">
+              <div class="widget-forms clearfix">
+                <form class="form-horizontal" action = "${path}Servlet/IndexServlet">
+                  <div class="control-group">
+                    <label class="control-label">删除小组</label>
+                    <div class="controls">
+                     <input type="hidden" name="action" value="deleteGroup">
+                     <h5>${deleteGroupStatus }</h5>
+                     <input class="span7" type="text" placeholder="请输入要删除的小组名称" name="groupName">
+                      <button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除小组</button>
+                    </div>
+                  </div>
+                 
+                </form>
+              </div>
+            </div>
+            
+          </div>
+    
+    </div>
         <!-- CHARTS  -->
     
 

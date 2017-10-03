@@ -24,9 +24,9 @@ import java.util.ArrayList;
  * Servlet implementation class IndexServlet
  */
 public class IndexServlet extends HttpServlet {
-	private static String URL = "http://fp.qust.cc/api/group/listgroup";
-	private static String APP_KEY = "appkey";
-	private static String APP_SECRET = "appseret";
+	private static String URL = "http://fp.qust.cc/api/";
+	private static String APP_KEY = "2f16a447-c972-45d5-a6e9-b2a4ed50e050";
+	private static String APP_SECRET = "97ECCE99E4B8326A82BA5BBC3EDA0664";
 	private static final long serialVersionUID = 1L;
        
     /**
@@ -52,6 +52,7 @@ public class IndexServlet extends HttpServlet {
 			deleteGroup(request,response);
 		}
 		else if(userAction.equals("addGroup")){
+			System.out.println("getaddgroup");
 			addGroup(request,response);
 		}
 	}
@@ -78,7 +79,7 @@ public class IndexServlet extends HttpServlet {
 			postMap.put("app_key", APP_KEY);
 			postMap.put("app_secret", APP_SECRET);
 			System.out.println("postMap" + postMap);
-			JSONObject listGroupReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL, postMap, "UTF-8"));
+			JSONObject listGroupReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"group/listgroup", postMap, "UTF-8"));
 			System.out.println(listGroupReturnJson);
 			if (listGroupReturnJson.getString("state").equals("success")) {
 
@@ -112,10 +113,48 @@ public class IndexServlet extends HttpServlet {
 			}
 		}
 	}
-	private void addGroup(HttpServletRequest request, HttpServletResponse response){
+	private void addGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+		
+		String newGroupName = request.getParameter("groupName");
+		Map<String, String> postMap = new HashMap<String, String>();
+		postMap.put("app_key", APP_KEY);
+		postMap.put("app_secret", APP_SECRET);
+		postMap.put("group_name", newGroupName);
+		System.out.println("postMap" + postMap);
+		JSONObject addGroupReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"group/addgroup", postMap, "UTF-8"));
+		System.out.println(addGroupReturnJson);
+		if (addGroupReturnJson.getString("message").equals("Add_Group_Success")) {
+			
+			 request.setAttribute("addGroupStatus","添加小组成功" );
+			request.getRequestDispatcher("../AddGroup.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("addGroupStatus","添加小组失败" );
+			request.getRequestDispatcher("../AddGroup.jsp").forward(request, response);
+		}
+		
 		
 	}
-	private void deleteGroup(HttpServletRequest request, HttpServletResponse response){
+	private void deleteGroup(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+
+		String deleteGroupName = request.getParameter("groupName");
+		Map<String, String> postMap = new HashMap<String, String>();
+		postMap.put("app_key", APP_KEY);
+		postMap.put("app_secret", APP_SECRET);
+		postMap.put("group_name", deleteGroupName);
+		System.out.println("postMap" + postMap);
+		JSONObject addGroupReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"group/deletegroup", postMap, "UTF-8"));
+		System.out.println(addGroupReturnJson);
+		if (addGroupReturnJson.getString("message").equals("Delete_Group_Success")) {
+			
+			 request.setAttribute("deleteGroupStatus","删除小组成功" );
+			request.getRequestDispatcher("../DeleteGroup.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("deleteGroupStatus","删除小组失败" );
+			request.getRequestDispatcher("../DeleteGroup.jsp").forward(request, response);
+		}
 		
 	}
 }
