@@ -116,7 +116,7 @@
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-                 <a class="accordion-toggle b_9FDDF6" href="DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
+               <a class="accordion-toggle b_9FDDF6" href="DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
@@ -132,7 +132,7 @@
       <div class="main_container" id="dashboard_page">
        <div class="widget widget-padding span12">
             <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>删除小组</h5>
+              <i class="icon-list-alt"></i><h5>删除用户</h5>
               <div class="widget-buttons">
                   <a href="#" data-title="Collapse" data-collapsed="false" class="tip collapse" data-original-title=""><i class="icon-chevron-up"></i></a>
               </div>
@@ -141,12 +141,13 @@
               <div class="widget-forms clearfix">
                 <form class="form-horizontal" action = "${path}Servlet/IndexServlet">
                   <div class="control-group">
-                    <label class="control-label">删除小组</label>
+                    <label class="control-label">删除用户</label>
                     <div class="controls">
-                     <input type="hidden" name="action" value="deleteGroup">
-                     <h5>${deleteGroupStatus }</h5>
-                     <input class="span7" type="text" placeholder="请输入要删除的小组名称" name="groupName">
-                      <button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除小组</button>
+                     <input type="hidden" name="action" value="deletePerson">
+                     <h5>${deletePersonStatus }</h5>
+                     <input class="span7" type="text" placeholder="请输入要删除的用户所属小组" name="groupName">
+                     <input class="span7" type="text" placeholder="请输入要删除的用户ID" name="personID">
+                      <button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除</button>
                     </div>
                   </div>
                  

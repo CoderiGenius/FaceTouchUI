@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import database.MatchID;
+import database.Match;
 
 /**
  * Servlet implementation class LoginServlet
@@ -39,10 +39,15 @@ public class LoginServlet extends HttpServlet {
 		
 		String userEmail = request.getParameter("Email");
 		String userPassword = request.getParameter("password");
-		String loginResult = MatchID.Match(userEmail, userPassword);
+		String loginResult = Match.Match(userEmail, userPassword);
 		if(loginResult == "access"){
 			HttpSession session = request.getSession();
 			session.setAttribute("userEmail",userEmail);
+			request.getRequestDispatcher("../index.jsp").forward(request, response);
+		}
+		else if(loginResult == "admin"){
+			HttpSession session = request.getSession();
+			session.setAttribute("userEmail","admin");
 			request.getRequestDispatcher("../index.jsp").forward(request, response);
 		}
 		else request.setAttribute("alert", "用户名或密码错误！");

@@ -55,7 +55,22 @@ public class IndexServlet extends HttpServlet {
 			System.out.println("getaddgroup");
 			addGroup(request,response);
 		}
+		else if(userAction.equals("deletePerson")){
+			System.out.println("getdeletegroup");
+			deletePerson(request,response);
+		}
+		else if(userAction.equals("listPerson")){
+			System.out.println("getlistgroup");
+			listPerson(request,response);
+		}
+		else if(userAction.equals("addadmin")){
+			System.out.println("getaddadmin");
+			addAdmin(request,response);
+		}
 	}
+
+
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -157,4 +172,100 @@ public class IndexServlet extends HttpServlet {
 		}
 		
 	}
+	private void deletePerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String deleteGroupName = request.getParameter("groupName");
+		String deletePersonName = request.getParameter("personID");
+		Map<String, String> postMap = new HashMap<String, String>();
+		postMap.put("app_key", APP_KEY);
+		postMap.put("app_secret", APP_SECRET);
+		postMap.put("group_name", deleteGroupName);
+		postMap.put("person_id", deletePersonName);
+		System.out.println("postMap" + postMap);
+		JSONObject addPersonReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"person/deleteperson", postMap, "UTF-8"));
+		System.out.println(addPersonReturnJson);
+		if (addPersonReturnJson.getString("message").equals("Delete_Person_Success")) {
+			
+			 request.setAttribute("deletePersonStatus","删除成员成功" );
+			request.getRequestDispatcher("../DeletePerson.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("deletePersonStatus","删除成员失败" );
+			request.getRequestDispatcher("../DeletePerson.jsp").forward(request, response);
+		}
+	}
+	private void listPerson(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String deleteGroupName = request.getParameter("groupName");
+		
+		Map<String, String> postMap = new HashMap<String, String>();
+		postMap.put("app_key", APP_KEY);
+		postMap.put("app_secret", APP_SECRET);
+		postMap.put("group_name", deleteGroupName);
+		
+		System.out.println("postMap" + postMap);
+		JSONObject listPersonReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"person/listperson", postMap, "UTF-8"));
+		System.out.println(listPersonReturnJson);
+		if (listPersonReturnJson.getString("message").equals("List_Person_Success")) {
+			int personCount = Integer.parseInt(listPersonReturnJson.getString("person_count"));
+			String count = listPersonReturnJson.getString("person_count");
+			String personID[] = new String[personCount];
+			String fingerCount[] = new String[personCount];
+
+			for (int i = 0; i < personCount; i++) {
+				JSONArray jsonArray = JSON.parseArray(listPersonReturnJson.getString("persons"));
+				com.alibaba.fastjson.JSONObject jsObj2 = JSON.parseObject(jsonArray.get(i).toString());
+				// System.out.println(jsObj2.getString("ph_en"));
+				personID[i] = jsObj2.getString("person_id");
+				fingerCount[i] = jsObj2.getString("finger_count");
+				
+				
+			//set小组名和小组人数
+				request.setAttribute("personID" + i, personID[i]);
+				request.setAttribute("fingerCount" + i, fingerCount[i]);
+			}
+			//set小组数
+			 request.setAttribute("personCount",count );
+			 System.out.println("groupc"+count);
+
+			request.getRequestDispatcher("../PersonManagement.jsp").forward(request, response);
+		}
+	}
+
+	private void addAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		String addAdminName = request.getParameter("adminName");
+		String addAdminPassword = request.getParameter("adminPassword");
+		
+		
+		//向服务器申请app
+		Map<String, String> postMap = new HashMap<String, String>();
+		postMap.put("app_key", APP_KEY);
+		postMap.put("app_secret", APP_SECRET);
+		
+		System.out.println("postMap" + postMap);
+		JSONObject addAdminReturnJson = JSONObject.fromObject(http.HttpClientUtil.doPost(URL+"app/createapp", postMap, "UTF-8"));
+		System.out.println(addAdminReturnJson);
+		
+		//向database添加数据
+				database.addUser.Add(addAdminName, addAdminPassword,addAdminReturnJson.getString("app_key"));
+				
+		if (addAdminReturnJson.getString("message").equals("Create_App_Success")) {
+			
+			String appKey = addAdminReturnJson.getString("app_key");
+			String appSecret = addAdminReturnJson.getString("app_secret");
+			 request.setAttribute("addAdminStatus","添加成功" );
+			 System.out.println(appSecret+appKey);
+			 request.setAttribute("appKey",appKey );
+			 request.setAttribute("appSecret",appSecret );
+			request.getRequestDispatcher("../Users.jsp").forward(request, response);
+		}
+		else {
+			request.setAttribute("addAdminStatus","添加失败" );
+			request.getRequestDispatcher("../Users.jsp").forward(request, response);
+		}
+	}
+
+	
+
 }

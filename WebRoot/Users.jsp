@@ -71,7 +71,7 @@
     <div class="container-fluid">
      
       <!-- Side menu -->
-   <div class="sidebar-nav nav-collapse collapse">
+    <div class="sidebar-nav nav-collapse collapse">
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
           <h5>${userEmail }</h5>
@@ -130,9 +130,9 @@
 
       <!-- Main window -->
       <div class="main_container" id="dashboard_page">
-       <div class="widget widget-padding span12">
+      <div class="widget widget-padding span12">
             <div class="widget-header">
-              <i class="icon-list-alt"></i><h5>删除小组</h5>
+              <i class="icon-list-alt"></i><h5>添加管理者</h5>
               <div class="widget-buttons">
                   <a href="#" data-title="Collapse" data-collapsed="false" class="tip collapse" data-original-title=""><i class="icon-chevron-up"></i></a>
               </div>
@@ -141,12 +141,29 @@
               <div class="widget-forms clearfix">
                 <form class="form-horizontal" action = "${path}Servlet/IndexServlet">
                   <div class="control-group">
-                    <label class="control-label">删除小组</label>
+                    <label class="control-label">添加管理者</label>
                     <div class="controls">
-                     <input type="hidden" name="action" value="deleteGroup">
-                     <h5>${deleteGroupStatus }</h5>
-                     <input class="span7" type="text" placeholder="请输入要删除的小组名称" name="groupName">
-                      <button class="btn btn-primary" onclick="this.form.submit()" type="submit">删除小组</button>
+                     <input type="hidden" name="action" value="addadmin">
+                     <h5>${addAdminStatus }</h5>
+                     <h5>appKey:</h5>
+                     <%
+                     String appKey = (String)request.getAttribute("appKey");
+                     
+                     if(appKey != null)out.write("<h5>"+appKey+"</h5>");
+                     %>
+                     <h5>appSercret:</h5>
+                      <%
+                     String appSecret = (String)request.getAttribute("appSecret");
+                     
+                     if(appKey != null)out.write("<h5>"+appSecret+"</h5>");
+                     %>
+                     <%String author = (String)session.getAttribute("userEmail"); 
+                     if(author.equals("admin")){
+                    	 out.write("<input class=\"span7\" type=\"text\" placeholder=\"请输入新管理组名称\" name=\"adminName\"><input class=\"span7\" type=\"text\" placeholder=\"请输入密码\" name=\"adminPassword\"><button class=\"btn btn-primary\" onclick=\"this.form.submit()\" type=\"submit\">添加</button>");
+                     }else out.write("<h3>对不起！您没有权限！</h3>");
+                     
+                     %>
+                     
                     </div>
                   </div>
                  
@@ -156,7 +173,10 @@
             
           </div>
     
-    </div>
+    
+    
+
+
         <!-- CHARTS  -->
     
 

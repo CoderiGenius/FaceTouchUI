@@ -55,7 +55,7 @@
             <li><a ><i class="icon-globe"></i> ${userEmail }</a></li>
           </ul>
             <ul class="pull-right">  
-              <li><a href="login.html"><i class="icon-off"></i> Logout</a></li>
+              <li><a href="login.jsp"><i class="icon-off"></i> Logout</a></li>
             </ul>
           </div>
 
@@ -63,7 +63,7 @@
             <ul class="pull-right">  
               <li><a title="link to View all Messages page, no popover in phone view or tablet" href="#"><i class="icon-envelope"></i></a></li>
               <li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a></li>
-              <li><a href="login.html"><i class="icon-off"></i></a></li>
+              <li><a href="login.jsp"><i class="icon-off"></i></a></li>
             </ul>
           </div>
 
@@ -84,7 +84,7 @@
 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C3F7A7 collapsed"  href="${path}GroupManagement.jsp"><i class="icon-magic"></i> <span>List Group</span></a>
+              <a class="accordion-toggle b_C3F7A7 collapsed"  href="${path}GroupManagement.jsp"><i class="icon-reorder"></i> <span>List Group</span></a>
             </div>
             <div id="collapse1" class="accordion-body collapse">
               <div class="accordion-inner">
@@ -114,12 +114,12 @@
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C1F8A9" href="analytics.html"><i class="icon-bar-chart"></i> <span>unnamed</span></a>
+              <a class="accordion-toggle b_9FDDF6" href="PersonManagement.jsp"><i class="icon-reorder"></i> <span>List Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_9FDDF6" href="tickets.html"><i class="icon-bullhorn"></i> <span>unnamed</span></a>
+                 <a class="accordion-toggle b_9FDDF6" href="DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
