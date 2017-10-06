@@ -25,8 +25,8 @@ import java.util.ArrayList;
  */
 public class IndexServlet extends HttpServlet {
 	private static String URL = "http://fp.qust.cc/api/";
-	private static String APP_KEY = "2f16a447-c972-45d5-a6e9-b2a4ed50e050";
-	private static String APP_SECRET = "97ECCE99E4B8326A82BA5BBC3EDA0664";
+	private static String APP_KEY = "appkey";
+	private static String APP_SECRET = "appsecret";
 	private static final long serialVersionUID = 1L;
        
     /**
