@@ -60,7 +60,7 @@
             <ul class="pull-right">  
               <li><a title="link to View all Messages page, no popover in phone view or tablet" href="#"><i class="icon-envelope"></i></a></li>
               <li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a></li>
-              <li><a href="login.jsp"><i class="icon-off"></i></a></li>
+              <li><a href="${path}login.jsp"><i class="icon-off"></i></a></li>
             </ul>
           </div>
 
@@ -121,7 +121,7 @@
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F5C294" href="users.html"><i class="icon-user"></i> <span>Admin</span></a>
+               <a class="accordion-toggle b_F5C294" href="${path}Users.jsp"><i class="icon-user"></i> <span>${userEmail }</span></a>
             </div>
           </div>      
         </div>
@@ -129,6 +129,13 @@
       <!-- /Side menu -->
 
       <!-- Main window -->
+       <%String userEmail = (String)session.getAttribute("userEmail");
+      	if(userEmail == null){
+      		//request.setAttribute("loginStatus","请登录！" );
+			//request.getRequestDispatcher("../login.jsp").forward(request, response);
+			response.sendRedirect("login.jsp");
+      	}
+      %>
       <div class="main_container" id="dashboard_page">
        <div class="widget widget-padding span12">
             <div class="widget-header">

@@ -62,7 +62,7 @@
             <ul class="pull-right">  
               <li><a title="link to View all Messages page, no popover in phone view or tablet" href="#"><i class="icon-envelope"></i></a></li>
               <li><a title="link to View all Notifications page, no popover in phone view or tablet" href="#"><i class="icon-globe"></i></a></li>
-              <li><a href="login.jsp"><i class="icon-off"></i></a></li>
+              <li><a href="${path}login.jsp"><i class="icon-off"></i></a></li>
             </ul>
           </div>
 
@@ -113,17 +113,17 @@
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-               <a class="accordion-toggle b_9FDDF6" href="PersonManagement.jsp"><i class="icon-reorder"></i> <span>List Person</span></a>
+               <a class="accordion-toggle b_9FDDF6" href="${path}PersonManagement.jsp"><i class="icon-reorder"></i> <span>List Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_9FDDF6" href="DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
+              <a class="accordion-toggle b_9FDDF6" href="${path}DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F5C294" href="Users.jsp"><i class="icon-user"></i> <span>${userEmail }</span></a>
+              <a class="accordion-toggle b_F5C294" href="${path}Users.jsp"><i class="icon-user"></i> <span>${userEmail }</span></a>
             </div>
           </div>      
         </div>
@@ -131,6 +131,13 @@
       <!-- /Side menu -->
 
       <!-- Main window -->
+       <%String userEmail = (String)session.getAttribute("userEmail");
+      	if(userEmail == null){
+      		//request.setAttribute("loginStatus","请登录！" );
+			//request.getRequestDispatcher("../login.jsp").forward(request, response);
+			response.sendRedirect("login.jsp");
+      	}
+      %>
       <div class="main_container" id="dashboard_page">
       <div id="readme" class="readme blob instapaper_body">
     

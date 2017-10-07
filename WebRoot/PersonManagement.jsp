@@ -74,6 +74,13 @@
     <div class="container-fluid">
      
       <!-- Side menu -->  
+       <%String userEmail = (String)session.getAttribute("userEmail");
+      	if(userEmail == null){
+      		//request.setAttribute("loginStatus","请登录！" );
+			//request.getRequestDispatcher("../login.jsp").forward(request, response);
+			response.sendRedirect("login.jsp");
+      	}
+      %>
       <div class="sidebar-nav nav-collapse collapse">
         <div class="user_side clearfix">
           <img src="assets/img/odinn.jpg" alt="Odinn god of Thunder">
@@ -114,17 +121,17 @@
           </div>
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_C1F8A9" href="analytics.html"><i class="icon-bar-chart"></i> <span>unnamed</span></a>
+               <a class="accordion-toggle b_9FDDF6" href="${path}PersonManagement.jsp"><i class="icon-reorder"></i> <span>List Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-                 <a class="accordion-toggle b_9FDDF6" href="DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
+                 <a class="accordion-toggle b_9FDDF6" href="${path}DeletePerson.jsp"><i class="icon-reorder"></i> <span>Delete Person</span></a>
             </div>
           </div> 
           <div class="accordion-group">
             <div class="accordion-heading">
-              <a class="accordion-toggle b_F5C294" href="users.html"><i class="icon-user"></i> <span>Admin</span></a>
+              <a class="accordion-toggle b_F5C294" href="${path}Users.jsp"><i class="icon-user"></i> <span>${userEmail }</span></a>
             </div>
           </div>      
         </div>
@@ -136,16 +143,16 @@
       <form action = "${path}Servlet/IndexServlet">
       <input type="hidden" name="action" value="listPerson">
 <h2 class="heading">
-                小组查询
+                用户查询
                 
           </h2>
        <input class="span7" type="text" placeholder="请输入要查询用户的小组" name="groupName"><br>
-<button class="btn btn-primary" onclick="this.form.submit()" type="submit">查询小组</button>
+<button class="btn btn-primary" onclick="this.form.submit()" type="submit">查询用户</button>
 </form>
  <div class="widget widget-padding span6" >
             <div class="widget-header">
               <i class="icon-calendar"></i>
-              <h5>小组列表</h5>
+              <h5>用户列表</h5>
               <div class="widget-buttons">
                   <a href="#" data-title="Collapse" data-collapsed="false" class="collapse"><i class="icon-chevron-up"></i></a>
               </div>
